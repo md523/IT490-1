@@ -9,7 +9,7 @@ class rabbitMQServer
 	private $BROKER_PORT;
 	private $USER;
 	private $PASSWORD;
-	private $VHOST;
+	//private $VHOST;
 	private $exchange;
 	private $queue;
 	private $routing_key = '*';
@@ -23,7 +23,7 @@ class rabbitMQServer
 		$this->BROKER_PORT   = $this->machine[$server]["BROKER_PORT"];
 		$this->USER     = $this->machine[$server]["USER"];
 		$this->PASSWORD = $this->machine[$server]["PASSWORD"];
-		$this->VHOST = $this->machine[$server]["VHOST"];
+		//$this->VHOST = $this->machine[$server]["VHOST"];
 		if (isset( $this->machine[$server]["EXCHANGE_TYPE"]))
 		{
 			$this->exchange_type = $this->machine[$server]["EXCHANGE_TYPE"];
@@ -63,7 +63,7 @@ class rabbitMQServer
       $params['port'] = $this->BROKER_PORT;
       $params['login'] = $this->USER;
       $params['password'] = $this->PASSWORD;
-      $params['vhost'] = $this->VHOST;
+      //$params['vhost'] = $this->VHOST;
 			$conn = new AMQPConnection($params);
 			$conn->connect();
 			$channel = new AMQPChannel($conn);
@@ -105,7 +105,7 @@ class rabbitMQServer
       $params['port'] = $this->BROKER_PORT;
       $params['login'] = $this->USER;
       $params['password'] = $this->PASSWORD;
-      $params['vhost'] = $this->VHOST;
+      //$params['vhost'] = $this->VHOST;
 			$conn = new AMQPConnection($params);
 			$conn->connect();
 
@@ -141,7 +141,7 @@ class rabbitMQClient
 	private $BROKER_PORT;
 	private $USER;
 	private $PASSWORD;
-	private $VHOST;
+	//private $VHOST;
 	private $exchange;
 	private $queue;
 	private $routing_key = '*';
@@ -155,7 +155,7 @@ class rabbitMQClient
 		$this->BROKER_PORT   = $this->machine[$server]["BROKER_PORT"];
 		$this->USER     = $this->machine[$server]["USER"];
 		$this->PASSWORD = $this->machine[$server]["PASSWORD"];
-		$this->VHOST = $this->machine[$server]["VHOST"];
+		//$this->VHOST = $this->machine[$server]["VHOST"];
 		if (isset( $this->machine[$server]["EXCHANGE_TYPE"]))
 		{
 			$this->exchange_type = $this->machine[$server]["EXCHANGE_TYPE"];
@@ -199,7 +199,7 @@ class rabbitMQClient
       $params['port'] = $this->BROKER_PORT;
       $params['login'] = $this->USER;
       $params['password'] = $this->PASSWORD;
-      $params['vhost'] = $this->VHOST;
+      //$params['vhost'] = $this->VHOST;
 
 			$conn = new AMQPConnection($params);
 			$conn->connect();
@@ -250,7 +250,7 @@ class rabbitMQClient
       $params['port'] = $this->BROKER_PORT;
       $params['login'] = $this->USER;
       $params['password'] = $this->PASSWORD;
-      $params['vhost'] = $this->VHOST;
+      //$params['vhost'] = $this->VHOST;
 			$conn = new AMQPConnection($params);
 			$conn->connect();
 			$channel = new AMQPChannel($conn);

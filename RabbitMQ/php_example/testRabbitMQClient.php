@@ -15,12 +15,12 @@ else
 }
 
 $request = array();
-$request['type'] = "Login";
-$request['username'] = "steve";
-$request['password'] = "password";
+$request['type'] = "login";
+$request['username'] = $POST['username'];
+$request['password'] = $POST['password'];
 $request['message'] = $msg;
 $response = $client->send_request($request);
-//$response = $client->publish($request);
+$response = $client->publish($request);
 
 echo "client received response: ".PHP_EOL;
 print_r($response);

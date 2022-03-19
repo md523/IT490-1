@@ -8,8 +8,43 @@ function doLogin($username,$password)
 {
     // lookup username in databas
     // check password
-    return true;
+    
     //return false if not valid
+    $hostname = '192.168.194.201';
+    $dbuser = 'rahi';
+    $dbpass = 'database';
+    $dbname = 'project';
+    $conn = mysqli_connect($hostname, $dbuser, $dbpass, $dbname);
+	
+    if (!$connection)
+	{
+		echo "Error connecting to database: ".$conn->connect_errno.PHP_EOL;
+		exit(1);
+	}
+	echo "Connection Established".PHP_EOL;
+	return $conn;
+	
+	//$username = $POST['username'];
+	//$password = $POST['password'];
+	$username2 = $mysqli->escape_string($username);
+	$password2 = $mysqli->escape_string($password);
+	
+	// lookup username and password in database
+	$sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+	// check username and password
+	$result = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($result) === 1){
+		$row = mysqli_fetch_assoc($result);
+		if($row['username']=== $username && row['password'] == $password){
+			echo "Authorized";
+			return true;
+			//ADD SESSION CODES
+		}
+		else 
+			{return false;}
+	}
+	
+	//return false if not valid
 }
 
 function requestProcessor($request)
