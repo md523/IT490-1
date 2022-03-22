@@ -27,14 +27,15 @@ function doRegister($fname, $username, $email, $password)
 		exit(1);
 	}
 	echo "Connection Established".PHP_EOL;
-	return $conn;
+	//return $conn;
 	
-//    $query = "INSERT INTO `Project`.`user` (`name`, `username`, `email`, `password`) VALUES ('$fname', '$username', '$email', '$password')";
+    $query = "INSERT INTO `Project`.`user` (`name`, `username`, `email`, `password`) VALUES ('$fname', '$username', '$email', '$password')";
     
-    $query = "INSERT INTO `Project`.`user` (`name`, `username`, `email`, `password`) VALUES ('bob', 'bob', 'bob@gmail.com', 'bobby')";
+ //   $query = "INSERT INTO `Project`.`user` (`name`, `username`, `email`, `password`) VALUES ('bob', 'bob', 'bob@gmail.com', 'bobby')";
     
     if (mysqli_query($conn, $query)) {
   	echo "New record created successfully";
+  	return 1;
 }   else {
   	echo "Error: " . $query . "<br>" . mysqli_error($conn);
 }
@@ -59,8 +60,8 @@ function doLogin($username,$password)
 		echo "Error connecting to database: ".$conn->connect_errno.PHP_EOL;
 		exit(1);
 	}
-	echo "Connection Established";
-	return $conn;
+	echo "Connection Established".PHP_EOL;
+	//return $conn;
 	
 	//$username = $POST['username'];
 	//$password = $POST['password'];
@@ -68,18 +69,36 @@ function doLogin($username,$password)
 	//$password2 = $mysqli->escape_string($password);
 	
 	// lookup username and password in database
-	$sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+	$sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
 	// check username and password
+	
 	$result = mysqli_query($conn, $sql);
-	if(mysqli_num_rows($result) === 1){
-		$row = mysqli_fetch_assoc($result);
-		if($row['username']=== $username && row['password'] == $password){
-			echo "Authorized";
-			return true;
-			//ADD SESSION CODES
+	if($result == false)
+	{
+		echo "Not authorized";
+		$result=0;
+		
+	}
+	if (mysqli_num_rows($result)==0)
+	{
+		echo "NO GOOD";
+	}
+	else
+	{
+		while($row=mysqli_fetch_array($result, MYSQLI_ASSOC))
+		{
+			if ($username = $row['username'] && $password = ['password'])
+			{
+				echo "Authorized";
+				return 1;
+			}
+			else
+			{
+				echo "No Good";
+				return 2;
+				
+			}
 		}
-		else 
-			{return 2;}
 	}
 }
 
@@ -100,7 +119,7 @@ function requestProcessor($request)
     case "register":
       return doRegister($request['fname'], $request['username'], $request['email'], $request['password']);
   }
-  return array("returnCode" => '0', 'message'=>"Server received request and processed");
+  //return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");

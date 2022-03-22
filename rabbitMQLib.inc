@@ -1,9 +1,5 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
-
 require_once('get_host_info.inc');
 
 
@@ -137,7 +133,7 @@ class rabbitMQServer
 		catch (Exception $e)
 		{
 			$event = date("Y-m-d") . "  " . date("h:i:sa") . " --- DataBase --- " . "Failed to start request processor: ".$e . "\n";
-    			//log_event($event);
+    			log_event($event);
 			trigger_error("Failed to start request processor: ".$e,E_USER_ERROR); 
 		}
 	}
@@ -241,8 +237,8 @@ class rabbitMQClient
 		}
 		catch(Exception $e)
 		{
-			//$event = date("Y-m-d") . "  " . date("h:i:sa") . " --- DataBase --- " . "failed to send message to exchange: ". $e->getMessage() . "\n";
-    			//log_event($event);
+			$event = date("Y-m-d") . "  " . date("h:i:sa") . " --- DataBase --- " . "failed to send message to exchange: ". $e->getMessage() . "\n";
+    			log_event($event);
 			die("failed to send message to exchange: ". $e->getMessage()."\n");
 		}
 	}
@@ -278,8 +274,8 @@ class rabbitMQClient
 		}
 		catch(Exception $e)
 		{
-			//$event = date("Y-m-d") . "  " . date("h:i:sa") . " --- DataBase --- " . "failed to send message to exchange: ". $e->getMessage() . "\n";
-    			//log_event($event);
+			$event = date("Y-m-d") . "  " . date("h:i:sa") . " --- DataBase --- " . "failed to send message to exchange: ". $e->getMessage() . "\n";
+    			log_event($event);
 			die("failed to send message to exchange: ". $e->getMessage()."\n");
 		}
 	}
